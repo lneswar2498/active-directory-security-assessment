@@ -80,6 +80,11 @@ Submitted the lab test executable to VirusTotal and reviewed the returned detect
 | Endpoint visibility | Process and logged-on user inspection | Support host triage and incident investigation |
 | File analysis | VirusTotal review of a test executable | Correlate multi-engine results with other evidence |
 
+
+## Related Active Directory enumeration exercise
+
+The companion [Network and User Discovery lab](docs/network-and-user-discovery.md) documents AD DS setup, test-user creation, Nmap discovery, SMB enumeration, DNS lookup, and PowerShell review.
+
 ## Practical skills
 
 - Installing and promoting Active Directory Domain Services.
