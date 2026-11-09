@@ -1,4 +1,4 @@
-# Active Directory Security Assessment Lab
+# Active Directory Security Assessment
 
 > A hands-on Windows Server domain lab covering domain setup, network discovery, SMB and LDAP enumeration, and Windows system inspection.
 
@@ -6,7 +6,9 @@
 [![Testing](https://img.shields.io/badge/Testing-Kali%20Linux-informational)](#tools-and-technologies)
 [![Scope](https://img.shields.io/badge/Scope-Controlled%20Lab-green)](#responsible-use)
 
-![Project architecture](images/architecture.svg)
+![Active Directory assessment architecture](images/architecture.svg)
+
+[Supporting exercise: Network and User Discovery](docs/network-and-user-discovery.md)
 
 ## Project overview
 
@@ -97,7 +99,7 @@ The companion [Network and User Discovery lab](docs/network-and-user-discovery.m
 
 ## Evidence and limitations
 
-The project notes describe the tools and workflow but do not include the domain name, exact Nmap/LDAP commands, sanitized enumeration output, screenshots, or a formal finding severity matrix. No claim is made that this represents a complete enterprise Active Directory security audit.
+The uploaded project reports document the AD DS setup, test-user creation, Nmap service discovery, SMB enumeration, LDAP/domain discovery, Sysinternals inspection, and Metasploit-based lab exercises. A companion network-and-user-discovery note is available above. Sanitized screenshots and command outputs should be added before claiming a full technical reproduction. No claim is made that this represents a complete enterprise Active Directory security audit.
 
 To strengthen reproducibility, add redacted command output, screenshots of the lab configuration, sample sanitized LDAPDomainDump reports, and a short findings register. Remove domain credentials, hashes, private keys, user data, and live network details before publishing.
 
