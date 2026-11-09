@@ -6,6 +6,8 @@
 [![Testing](https://img.shields.io/badge/Testing-Kali%20Linux-informational)](#tools-and-technologies)
 [![Scope](https://img.shields.io/badge/Scope-Controlled%20Lab-green)](#responsible-use)
 
+![Project architecture](images/architecture.svg)
+
 ## Project overview
 
 This project documents the setup and security assessment of a small Active Directory lab. Windows Server 2022 was configured as a domain controller, while Kali Linux was used to inspect exposed services and enumerate domain-related information.
