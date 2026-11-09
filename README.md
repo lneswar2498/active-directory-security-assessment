@@ -1,192 +1,105 @@
-# Inside-the-Vault-Cracking-the-Code-of-Corporate-Domain-Secrets
-Hands-on Active Directory security assessment using Kali Linux, Nmap, LDAP, Metasploit, and Sysinternals in a Windows Server lab environment.
+# Active Directory Security Assessment Lab
 
+> A hands-on Windows Server domain lab covering domain setup, network discovery, SMB and LDAP enumeration, and Windows system inspection.
 
-Project Overview
-=================
+[![Platform](https://img.shields.io/badge/Platform-Windows%20Server%202022-blue)](#lab-environment)
+[![Testing](https://img.shields.io/badge/Testing-Kali%20Linux-informational)](#tools-and-technologies)
+[![Scope](https://img.shields.io/badge/Scope-Controlled%20Lab-green)](#responsible-use)
 
-In this project, I created a Windows Active Directory lab environment and performed different security assessment activities to understand how a corporate domain works and what information can be discovered during a security assessment.
+## Project overview
 
-I used Windows Server 2022 as the domain controller and Kali Linux as the security testing machine.
+This project documents the setup and security assessment of a small Active Directory lab. Windows Server 2022 was configured as a domain controller, while Kali Linux was used to inspect exposed services and enumerate domain-related information.
 
-The project involved setting up Active Directory, creating domain users, scanning network services, enumerating SMB and LDAP information, exploring domain objects, and performing controlled security testing using Metasploit.
+The work covered Active Directory Domain Services, test user creation, Nmap service discovery, SMB and LDAP enumeration, domain reporting, and inspection of Windows processes and logged-on users with Sysinternals utilities. The notes also describe controlled Metasploit exercises and a VirusTotal review of a test executable.
 
-I also explored Windows system information using Sysinternals tools and analyzed a test payload using VirusTotal.
+The goal was to understand how directory services operate, what information may be exposed during an assessment, and why identity, endpoint, and network monitoring are important.
 
-The main purpose of this project was to gain hands-on experience with Active Directory security, network enumeration, and common techniques used during penetration testing.
+## Lab environment
 
-Tools and Technologies Used
-===========================
-Windows Server 2022
+| System / tool | Purpose |
+|---|---|
+| Windows Server 2022 | Domain controller |
+| Kali Linux | Security testing workstation |
+| Oracle VirtualBox | Virtual lab platform |
+| Active Directory Domain Services | Centralized domain and identity management |
+| Nmap | Network and service discovery |
+| Enum4linux | SMB-related enumeration |
+| LDAPSearch | Directory queries |
+| LDAPDomainDump | Directory information reporting |
+| Metasploit Framework | Controlled security assessment exercises |
+| Sysinternals AD Explorer | Active Directory object inspection |
+| Sysinternals PsList | Process inspection |
+| Sysinternals PsLoggedOn | Logged-on user inspection |
+| VirusTotal | Test-file security analysis |
 
-Kali Linux
+## Lab workflow
 
-Oracle VirtualBox
+### 1. Prepare the virtual machines
 
-Active Directory Domain Services (AD DS)
+Created Windows Server 2022 and Kali Linux virtual machines in VirtualBox and configured connectivity for the lab exercises.
 
-Nmap
+### 2. Configure Active Directory
 
-Enum4linux
+Installed the Active Directory Domain Services role through Server Manager and promoted the Windows Server machine to a domain controller. Created a test domain user through Active Directory Users and Computers.
 
-LDAPSearch
+### 3. Discover network services
 
-LDAPDomainDump
+Ran Nmap against the Windows Server lab system to identify open services. The notes record Active Directory-related services, including DNS, Kerberos, LDAP, and SMB.
 
-Metasploit Framework
+### 4. Review SMB exposure
 
-Sysinternals AD Explorer
+Used Nmap SMB enumeration capabilities and Enum4linux to inspect SMB-related information and reported shares. This exercise highlighted why organizations should restrict unnecessary share access and avoid exposing domain information to unauthenticated users.
 
-Sysinternals PsList
+### 5. Enumerate LDAP and domain information
 
-Sysinternals PsLoggedOn
+Used LDAPSearch and Kerberos-related enumeration exercises to inspect domain information and user-account discovery behavior. LDAPDomainDump was then used to create readable reports of domain objects, including users, computers, and groups.
 
-Python HTTP Server
+### 6. Inspect Active Directory and Windows activity
 
-VirusTotal
+Used Sysinternals AD Explorer to inspect directory objects. Used PsList to review running processes and PsLoggedOn to inspect logged-on user information.
 
-Project Implementation
-=======================
-STEP-1:- Setting Up the Lab Environment
--------
-I started by preparing my Windows Server 2022 virtual machine and Kali Linux machine in VirtualBox.
+### 7. Conduct controlled security exercises
 
-Windows Server was used as the target domain environment, while Kali Linux was used to perform the security assessment.
+The source notes describe using Metasploit auxiliary modules for SMB and Kerberos enumeration and a controlled multi-handler/reverse-connection exercise in the isolated lab. These steps were used to understand the security implications of compromised access and the importance of endpoint monitoring.
 
-I checked the network connectivity and prepared the virtual machines for the practical exercises.
+### 8. Review a test executable
 
-STEP-2:- Installing Active Directory Domain Services
-------
-After preparing Windows Server, I opened Server Manager and selected Add Roles and Features.
+Submitted the lab test executable to VirusTotal and reviewed the returned detection information. A VirusTotal result is an indicator for investigation, not by itself proof that a file is malicious or benign.
 
-I installed Active Directory Domain Services (AD DS) and promoted the server to a domain controller.
+## Security concepts explored
 
-This allowed me to create and manage a Windows domain environment similar to what organizations use for centralized user and computer management.
+| Area | What the lab demonstrated | Defensive relevance |
+|---|---|---|
+| Domain identity | Domain controller and test user setup | Centralized identity governance and least privilege |
+| Network exposure | DNS, Kerberos, LDAP, and SMB discovery | Reduce unnecessary exposure and monitor service access |
+| SMB | Share and service enumeration | Restrict share permissions and review anonymous access |
+| LDAP | Directory queries and object discovery | Protect directory data and audit queries |
+| Domain reporting | User, group, and computer reports | Review stale accounts and excessive privileges |
+| Endpoint visibility | Process and logged-on user inspection | Support host triage and incident investigation |
+| File analysis | VirusTotal review of a test executable | Correlate multi-engine results with other evidence |
 
-STEP-3:- Creating and Managing Domain Users
-------
-Once the domain controller was configured, I opened Active Directory Users and Computers.
+## Practical skills
 
-I created a test user account, assigned a password, and verified that the account appeared in the domain.
+- Installing and promoting Active Directory Domain Services.
+- Creating and managing test domain accounts.
+- Discovering Windows domain services with Nmap.
+- Inspecting SMB and LDAP exposure.
+- Reviewing directory objects with LDAPDomainDump and AD Explorer.
+- Inspecting processes and logged-on users with Sysinternals.
+- Understanding the role of endpoint monitoring during controlled security testing.
 
-This helped me understand how domain administrators create and manage user accounts.
+## Evidence and limitations
 
-STEP-4:- Performing Initial Network Scanning
-------
-After configuring the domain environment, I moved to Kali Linux and performed an initial network scan using Nmap.
+The project notes describe the tools and workflow but do not include the domain name, exact Nmap/LDAP commands, sanitized enumeration output, screenshots, or a formal finding severity matrix. No claim is made that this represents a complete enterprise Active Directory security audit.
 
-The scan helped me identify the services running on the Windows Server machine.
+To strengthen reproducibility, add redacted command output, screenshots of the lab configuration, sample sanitized LDAPDomainDump reports, and a short findings register. Remove domain credentials, hashes, private keys, user data, and live network details before publishing.
 
-I observed services associated with Active Directory, including DNS, Kerberos, LDAP, and SMB.
+## Responsible use
 
-This gave me an initial understanding of the target machine's network exposure.
+All activities described here are intended for an isolated lab and authorized assessment only. Do not enumerate, exploit, or access a domain without explicit permission from its owner.
 
-STEP-5:- Enumerating SMB Shares
-------
-Next, I used Nmap's SMB enumeration capabilities to identify shared resources available on the Windows machine.
+## Author
 
-I examined the discovered shares and their reported access information.
+**Naga Venkata Eswara Sastry L**  
+Cybersecurity learner | Aspiring SOC Analyst
 
-This step helped me understand how SMB services expose shared resources and why organizations need appropriate access controls.
-
-STEP-6:- Identifying Operating System and SMB Information
--------
-I performed additional Nmap scans to gather operating system and SMB-related information.
-
-I focused on identifying the Windows Server version, SMB service details, and the services available on port 445.
-
-This helped me understand how network enumeration provides information about a target system before further security testing.
-
-STEP-7:- Enumerating the Target Using Enum4linux
-------
-I used Enum4linux from Kali Linux to gather additional information about the Windows domain environment.
-
-The tool was used to inspect SMB-related information and identify details exposed by the target.
-
-This helped me understand the importance of limiting unnecessary information disclosure.
-
-STEP-8:- Exploring Metasploit Enumeration Modules
-------
-After completing the initial scans, I opened the Metasploit Framework.
-
-I explored auxiliary scanning modules related to SMB and Kerberos enumeration.
-
-I configured the required module options and ran them against the Windows Server lab machine.
-
-This helped me understand how Metasploit can be used for reconnaissance and security assessment, not only exploitation.
-
-STEP-9:- Performing LDAP Enumeration
-------
-Next, I used LDAPSearch to query the Active Directory environment.
-
-I examined directory information and performed searches related to domain objects and user accounts.
-
-This helped me understand how LDAP is used to organize and retrieve information from Active Directory.
-
-STEP-10:- Checking Domain User Information
--------
-I performed additional LDAP queries and Kerberos-based username enumeration.
-
-The objective was to identify user accounts present in the lab domain and understand how account information can be discovered.
-
-This demonstrated why organizations should monitor authentication-related activity and protect directory information.
-
-STEP-11:- Generating Active Directory Reports Using LDAPDomainDump
--------
-I used LDAPDomainDump to collect directory information from the lab environment.
-
-The tool generated reports containing details about domain users, computers, groups, and other Active Directory objects.
-
-I then opened the generated HTML reports to examine the information in a more readable format.
-
-This helped me understand how directory enumeration results can be organized for analysis and reporting.
-
-STEP-12:- Exploring Active Directory Using AD Explorer
--------
-Next, I used Microsoft Sysinternals AD Explorer to examine the Active Directory environment.
-
-I worked with the connection settings and explored how the tool can be used to inspect directory objects and their properties.
-
-This helped me become more familiar with Active Directory administration and analysis tools.
-
-STEP-13:- Checking Windows Processes and Logged-In Users
--------
-I explored two Sysinternals utilities:
-
-PsList: Used to view running processes and their related information.
-
-PsLoggedOn: Used to identify logged-on user information.
-
-These tools helped me understand how Windows process and session information can support system administration and security investigations.
-
-STEP-14:- Exploring Controlled Security Testing with Metasploit
--------
-In the next part of the project, I worked with Metasploit's multi-handler and a test executable in the isolated lab.
-
-I configured the testing environment and examined the behavior of a reverse connection during the exercise.
-
-This helped me understand how remote sessions can be established and why endpoint monitoring and security controls are important.
-
-STEP-15:- Examining System Information and Credential Exposure
---------
-After establishing the lab session, I explored system information available through the testing framework.
-
-I examined operating system details, network configuration, and the exposure of credential-related information in the controlled environment.
-
-This demonstrated the security risks that can arise when an attacker obtains elevated access to a Windows system.
-
-STEP-16:- Analyzing the Test Executable Using VirusTotal
---------
-After the practical testing, I submitted the test executable to VirusTotal for security analysis.
-
-I reviewed the detection results and the graphical analysis provided by the platform.
-
-This helped me understand how security products identify suspicious files and how detection results can be interpreted during malware analysis.
-
-Project Outcome
-================
-Through this project, I gained practical experience with Windows Active Directory and the tools used during network and domain security assessments.
-
-I learned how to configure a domain controller, create domain accounts, discover network services, enumerate directory information, and inspect Windows system activities.
-
-The controlled security testing exercises also helped me understand the importance of access controls, endpoint protection, credential security, and security monitoring.
